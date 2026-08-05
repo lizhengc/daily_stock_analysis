@@ -12,7 +12,7 @@ ARG DSA_WEB_VERSION=0.0.0
 ARG DSA_WEB_REVISION=unknown
 
 COPY apps/dsa-web/package.json apps/dsa-web/package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci
+RUN npm ci
 
 COPY apps/dsa-web/ ./
 RUN DSA_WEB_VERSION="${DSA_WEB_VERSION}" DSA_WEB_REVISION="${DSA_WEB_REVISION}" npm run build
@@ -47,7 +47,7 @@ RUN groupadd -g 1000 dsa && \
 COPY requirements.txt .
 
 # 安装 Python 依赖
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # 复制应用代码
 COPY *.py ./
